@@ -9,6 +9,17 @@ function App() {
   const [counters, setCounters] = useState([]);
   const sum = counters.reduce((acc, item) => acc + item, 0);
 
+  const createCounters = (e) => {
+    if(e.key==="Enter"){
+      console.log("hello");
+      let arr = []
+      for(let i=0;i<noOfCounters;i++){
+        arr.push(0);
+      }
+      setCounters(arr);
+    }
+  }
+
   const valueChange = useMemo(() => (type, index) => {
     let tempCounters = [...counters];
     switch (type) {
@@ -37,7 +48,7 @@ function App() {
     <div className="App">
       
       <MainCounter count={sum} onReset = {() => valueChange('main_reset')} />
-      <input type="number" value={noOfCounters} onChange={(e)=>setNoOfCounters(e.currentTarget.value)} />
+      <input type="number" value={noOfCounters} onChange={(e)=>setNoOfCounters(e.currentTarget.value)} onKeyDown={createCounters} />
       <button onClick={() => setCounters([...counters, 0])}>Add Counter</button>
       <div className="counters-area">
         {counters.map((value, index) => {
