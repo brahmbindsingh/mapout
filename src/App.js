@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import MainCounter from "./Components/MainCounter";
+import SubCounter from "./Components/SubCounter";
+import { useMemo, useState } from "react";
 
 function App() {
+  const [noOfCounters, setNoOfCounters] = useState(0);
+  const [counters, setCounters] = useState([]);
+  const sum = counters.reduce((acc, item) => acc + item, 0);
+
+  const valueChange = useMemo(() => (type, index) => {
+    let tempCounters = [...counters];
+    switch (type) {
+      case "inc_value":
+        tempCounters[index] += 1;
+        setCounters(tempCounters);
+        break;
+
+      case "reset":
+        tempCounters[index] = 0;
+        setCounters(tempCounters);
+        break;
+      
+      case "main_reset":
+        let tempArr = counters.map((el)=>{
+          return 0;
+        })
+        setCounters(tempArr);
+
+      default:
+    }
+  }, [counters]);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <MainCounter count={sum} onReset = {() => valueChange('main_reset')} />
+      <input type="number" value={noOfCounters} onChange={(e)=>setNoOfCounters(e.currentTarget.value)} />
+      <button onClick={() => setCounters([...counters, 0])}>Add Counter</button>
+      <div className="counters-area">
+        {counters.map((value, index) => {
+          return <SubCounter key={index} value = {value} onIncrement = {() => valueChange('inc_value', index)} onReset = {() => valueChange('reset', index)} />;
+        })}
+      </div>
     </div>
   );
 }

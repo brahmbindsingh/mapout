@@ -1,0 +1,42 @@
+.counter{
+    color: white;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+    justify-content: space-evenly;
+}
+
+.counter button{
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.counter .buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.counters-area{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.count{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.main{
+    background: #d33650;
+}
+
+.sub{
+    margin-right: 20px;
+    background: #2e8513;
+}
